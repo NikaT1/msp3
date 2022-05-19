@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<project name="msp3" default="build">
+    <property file="build.properties"/>
+    <path id="classpath.lib">
+        <fileset dir="lib" includes="*.jar"/>
+    </path>
+
+    <path id="classpath.test">
+        <pathelement location="lib/junit-4.12.jar"/>
+        <pathelement location="lib/hamcrest-core-1.3.jar"/>
+        <pathelement location="${ant.classes}"/>
+    </path>
+
+    <target name="compile">
+        <mkdir dir="${ant.classes}"/>
+        <javac includeantruntime="false" srcdir="${src}" destdir="${ant.classes}">
+            <classpath refid="classpath.lib"/>
+        </javac>
+    </target>
+
+    <target name="build" depends="compile">
+        <copy todir="${ant.classes}">
+            <fileset dir="src/main/resources"/>
+        </copy>
+        <jar basedir="${ant.classes}" destfile="${ant.build.dir}/${ant.project.name}.jar">
+            <manifest>
+                <attribute name="Main-Class" value="${main.class}"/>
+                <attribute name="Manifest-Version" value="1.0"/>
+            </manifest>
+        </jar>
+        <echo>---Jar файл собран---</echo>
+
+        <war destfile="${ant.build.dir}/${ant.project.name}.war" webxml="${webxml}">
+            <fileset dir="${src.web}"/>
+            <lib dir="lib"/>
+            <classes dir="${ant.classes}"/>
+            <manifest>
+                <attribute name="Main-Class" value="${main.class}"/>
+                <attribute name="Manifest-Version" value="1.0"/>
+            </manifest>
+        </war>
+        <echo>---War файл собран---</echo>
+    </target>
+
+    <target name="clean">
+        <delete>
+            <fileset dir="${ant.classes}"/>
+        </delete>
+    </target>
+
+    <target name="test-compile" depends="compile">
+        <mkdir dir="${ant.test.classes}"/>
+        <javac srcdir="${test}" destdir="${ant.test.classes}" includeantruntime="false">
+            <classpath refid="classpath.test"/>
+        </javac>
+    </target>
+
+    <target name="test" depends="test-compile">
+        <mkdir dir="${test.result}"/>
+        <junit printsummary="true" haltonfailure="yes">
+            <classpath>
+                <path refid="classpath.test"/>
+                <pathelement location="${ant.test.classes}"/>
+            </classpath>
+            <test name="${test.name}" todir="${test.result}">
+                <formatter type="plain"/>
+                <formatter type="xml"/>
+            </test>
+        </junit>
+    </target>
+
+    <target name="team">
+
+    </target>
+<!--    <target name="native2ascii">-->
+<!--        <native2ascii encoding="${localization.encoding}" src="${localization.files.path}"-->
+<!--                      dest="${build.dir}/resources" ext=".properties" includes="*Resources*.*"/>-->
+<!--        <copy todir="${build.dir}/test">-->
+<!--            <fileset dir="${build.dir}/resources"/>-->
+<!--        </copy>-->
+<!--    </target>-->
+</project>

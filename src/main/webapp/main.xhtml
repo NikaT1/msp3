@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+<f:view>
+    <h:body>
+        <ui:composition template="templates/template.xhtml">
+            <ui:define name="content">
+                <h:outputScript library="js" name="valid.js"/>
+                <h:outputScript library="js" name="jQuery.js"/>
+                <table id="body-table" class="body-table">
+                    <tr class="background-with-shadow" id="background-tr">
+                        <td>
+                            <h:form id="main-f">
+                                <table class="background" id="background-table">
+                                    <tr>
+                                        <td>
+                                            <ui:include src="templates/picture.xhtml"/>
+                                        </td>
+                                        <td>
+                                            <img id="imagine3" class="imagine3" src="resources/images/pic3.png"
+                                                 alt="Милый хомячок"/>
+                                        </td>
+                                        <td rowspan="2" class="background" id="result-td">
+                                            <div id="result-div">
+                                                <ui:include src="templates/table.xhtml"/>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <table id="numbers-table" class="background">
+                                                <tr class="numbers">
+                                                    <td>X:</td>
+                                                    <td>
+                                                        <p:commandLink id="x-button-default" class="x-button"
+                                                                       type="button"
+                                                                       value="-4"></p:commandLink>
+                                                    </td>
+                                                    <td>
+                                                        <p:commandLink class="x-button" type="button"
+                                                                       value="-3"></p:commandLink>
+                                                    </td>
+                                                    <td>
+                                                        <p:commandLink class="x-button" type="button"
+                                                                       value="-2"></p:commandLink>
+                                                    </td>
+                                                    <td>
+                                                        <p:commandLink class="x-button" type="button"
+                                                                       value="-1"></p:commandLink>
+                                                    </td>
+                                                    <td>
+                                                        <p:commandLink class="x-button" type="button"
+                                                                       value="0"></p:commandLink>
+                                                    </td>
+                                                    <td>
+                                                        <p:commandLink class="x-button" type="button"
+                                                                       value="1"></p:commandLink>
+                                                    </td>
+                                                    <td>
+                                                        <p:commandLink class="x-button" type="button"
+                                                                       value="2"></p:commandLink>
+                                                    </td>
+                                                    <td>
+                                                        <p:commandLink class="x-button" type="button"
+                                                                       value="3"></p:commandLink>
+                                                    </td>
+                                                    <td>
+                                                        <p:commandLink class="x-button" type="button"
+                                                                       value="4"></p:commandLink>
+                                                    </td>
+                                                    <h:inputHidden value="#{dataBeans.newData.x}" id="inputX">
+                                                        <f:validateRequired/>
+                                                        <f:validateLongRange minimum="-4" maximum="4"/>
+                                                    </h:inputHidden>
+                                                </tr>
+                                                <tr>
+                                                    <td>Y:</td>
+                                                    <td colspan="4">
+                                                        <h:inputText id="inputY" maxlength="17"
+                                                                     a:placeholder="Введите число: (-3; 5)"
+                                                                     value="#{dataBeans.newData.y}">
+                                                            <f:validateRequired/>
+                                                            <f:validateDoubleRange minimum="-3" maximum="5"/>
+                                                        </h:inputText>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>R:</td>
+                                                    <td colspan="4">
+                                                        <h:selectOneMenu value="#{dataBeans.newData.r}" id="inputR">
+                                                            <f:selectItem itemValue="1" itemLabel="1"/>
+                                                            <f:selectItem itemValue="2" itemLabel="2"/>
+                                                            <f:selectItem itemValue="3" itemLabel="3"/>
+                                                            <f:selectItem itemValue="4" itemLabel="4"/>
+                                                            <f:selectItem itemValue="5" itemLabel="5"/>
+                                                            <f:validateRequired/>
+                                                        </h:selectOneMenu>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="td-button-return" colspan="6">
+                                                        <h:button class="button" outcome="toIndex"
+                                                                  value="Назад"/>
+                                                    </td>
+                                                    <td colspan="2">
+                                                        <h:commandButton id="submit" type="submit" styleClass="button"
+                                                                         value="Результат"
+                                                                         action="#{dataBeans.addData}">
+                                                            <f:ajax execute="main-f" render="panel"/>
+                                                        </h:commandButton>
+                                                    </td>
+                                                    <td colspan="2">
+                                                        <h:commandButton styleClass="button" id="reset"
+                                                                         value="Очистить"
+                                                                         action="#{dataBeans.clear}">
+                                                            <f:ajax execute="main-f" render="panel"/>
+                                                        </h:commandButton>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </h:form>
+                        </td>
+                    </tr>
+                </table>
+            </ui:define>
+            <ui:define name="button">
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</f:view>
+</html>

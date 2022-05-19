@@ -1,0 +1,14 @@
+Testsuite: AreaCheckingTest
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0,063 sec
+------------- Standard Output ---------------
+---Start testing DataChecking---
+------------- ---------------- ---------------
+
+Testcase: checkInTriangle took 0 sec
+Testcase: checkOutOfCircle took 0 sec
+Testcase: checkOutOfArea took 0 sec
+Testcase: checkInArea took 0 sec
+Testcase: checkOutOfRectangle took 0 sec
+Testcase: checkOutOfTriangle took 0 sec
+Testcase: checkInCircle took 0 sec
+Testcase: checkInRectangle took 0 sec
